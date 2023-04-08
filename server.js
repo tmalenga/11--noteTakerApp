@@ -1,6 +1,7 @@
 const express = require ("express");
 const bodyParser = require("body-parser");
 const apiRoutes = require("./routes/notes");
+const path = require("path");
 
 const PORT = process.env.port || 3000;
 
@@ -13,39 +14,11 @@ app.use(express.static('public'));
 app.use("/api", apiRoutes )
 
 app.get('/notes', (req, res) =>{
-    res.sendFile(__dirname + '/public/notes.html')
+    res.sendFile(path.join(__dirname, '/public/notes.html'))
 });
 
 app.get('/', (req, res) =>{
-    res.sendFile(__dirname + '/public/index.html')
+    res.sendFile(path.join(__dirname, '/public/index.html'))
 });
-
-
-// GET request for notes
-// app.get('/api/db', (req, res) => {
-//     res.status(200).json(notes);
-// });
-
-// app.post('/api/db', (req, res) => {
-//     console.info(`${req.method} request recieved by the user`);
-
-//     const {text, title} = req.body;
-
-//     if (text && title){
-//         const newNote = {text, title};  
-        
-//         const response = {
-//             status: 'success',
-//             body: newNote,
-//         };
-
-//         console.log(response);
-//         res.status(201).json(response);
-
-//     } else {
-//         res.status(500).json('Error in posting review');
-//     }
-
-// });
 
 app.listen(PORT, () => console.log(`App listening at http://localhost:${PORT}`));
